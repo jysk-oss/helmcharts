@@ -1,0 +1,6 @@
+dependencies:
+- name: hoppscotch-aio
+  repository: file://charts/hoppscotch-aio
+  version: 0.1.0
+digest: sha256:3bd5ea3a2fd2782e2ee7904aebc94672bd790114b498da7e4c77528fee86c710
+generated: "2023-11-12T10:48:17.55124+01:00"

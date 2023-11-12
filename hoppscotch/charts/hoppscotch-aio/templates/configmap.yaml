@@ -1,0 +1,45 @@
+{{- $appUrl := index .Values.ingress.hosts 0 "host" -}}
+{{- $adminUrl := index .Values.ingressAdmin.hosts 0 "host" -}}
+{{- $apiUrl := index .Values.ingressApi.hosts 0 "host" -}}
+
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "hoppscotch-aio.fullname" . }}-env
+data:
+  ACCESS_TOKEN_VALIDITY: "86400000"
+  DATABASE_URL: 'postgresql://username:password@localhost:5432/dbname'
+  GITHUB_CALLBACK_URL: https://{{ $apiUrl }}/v1/auth/github/callback
+  GITHUB_CLIENT_ID: '*****'
+  GITHUB_CLIENT_SECRET: '*****'
+  GITHUB_SCOPE: user:email
+  GOOGLE_CALLBACK_URL: https://{{ $apiUrl }}/v1/auth/google/callback
+  GOOGLE_CLIENT_ID: '*****'
+  GOOGLE_CLIENT_SECRET: '*****'
+  GOOGLE_SCOPE: email,profile
+  JWT_SECRET: secretcode123
+  MAGIC_LINK_TOKEN_VALIDITY: "3"
+  MAILER_ADDRESS_FROM: '"Hoppscotch <hoppscotch@mail.com>"'
+  MAILER_SMTP_URL: smtp://mail.test.com
+  MICROSOFT_CALLBACK_URL: https://{{ $apiUrl }}/v1/auth/microsoft/callback
+  MICROSOFT_CLIENT_ID: '*****'
+  MICROSOFT_CLIENT_SECRET: '*****'
+  MICROSOFT_SCOPE: user.read
+  MICROSOFT_TENANT: common
+  RATE_LIMIT_MAX: '100 '
+  RATE_LIMIT_TTL: '60 '
+  REDIRECT_URL: https://{{ $appUrl }}
+  REFRESH_TOKEN_VALIDITY: "604800000"
+  SESSION_SECRET: anothersecretcode123
+  TOKEN_SALT_COMPLEXITY: "10"
+  VITE_ALLOWED_AUTH_PROVIDERS: EMAIL,GITHUB
+  VITE_APP_PRIVACY_POLICY_LINK: httpss://docs.hoppscotch.io/support/privacy
+  VITE_APP_TOS_LINK: httpss://docs.hoppscotch.io/support/terms
+  VITE_ADMIN_URL: https://{{ $adminUrl }}
+  VITE_BACKEND_API_URL: https://{{ $apiUrl }}/v1
+  VITE_BACKEND_GQL_URL: https://{{ $apiUrl }}/graphql
+  VITE_BACKEND_WS_URL: wss://{{ $apiUrl }}/graphql
+  VITE_BASE_URL: https://{{ $appUrl }}
+  VITE_SHORTCODE_BASE_URL: https://{{ $appUrl }}
+  WHITELISTED_ORIGINS: https://{{ $apiUrl }},https://{{ $appUrl }},https://{{ $adminUrl }}
